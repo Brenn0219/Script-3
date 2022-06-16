@@ -23,6 +23,17 @@
     display: none;
 }
 
+.mensagemNaoAchada {
+    display: none;
+    font-size: 1.5rem;
+    color: red;
+    text-align: center;
+}
+
 .form-categoria {
     margin-top: 2rem;
+}
+
+.red {
+    border: solid 1px red;
 }
