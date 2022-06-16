@@ -1,0 +1,20 @@
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+.titulo {
+    text-align: center;
+}
+
+.mensagem {
+    background-color: rgba(196, 196, 9, 0.685);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    display: none;
+}
+
+.form-categoria {
+    margin-top: 2rem;
+}
