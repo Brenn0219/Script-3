@@ -14,6 +14,7 @@ const mensagem = document.getElementById("mensagem");
 const mensagemTexto = document.getElementById("mensagemTexto");
 const mensagemdeletar = document.getElementById("mensagemDeletar");
 const mensagemTextoDelete = document.getElementById("mensagemTextoDelete");
+const mensagemNaoAchada = document.getElementById("mensagemNaoAchada");
 
 // Objeto com Vetor
 let db_cadastro = {
@@ -41,6 +42,7 @@ function cadastrarCategoria() {
 
         mensagem.style.display = "none"; // Mensagem dos campos não preenchidos ficam como none
         mensagemdeletar.style.display = "none"; // Mensagem caso não tenha nenhum item no vetor ficam como none
+        mensagemNaoAchada.style.display = "none";  // Mensagem caso não tenha achado o item no vetor ficam como none
 
         montarTabela(); // Função para Montar a Tabela
     }
@@ -81,6 +83,11 @@ function deletarCategoria() {
             for(let i=0; i<db_cadastro.data.length; i++) {
                 if(idCategoria.value == db_cadastro.data[i].id && categoria.value == db_cadastro.data[i].categoria) { // Se o que for digitado nos inputs tem no vetor
                     db_cadastro.data.splice(i, 1); // Excluí o índice específico do vetor 
+                    mensagemNaoAchada.style.display = "none";  // Mensagem caso não tenha achado o item no vetor ficam como none
+                }
+                else {
+                    mensagemNaoAchada.style.display = "block";
+                    mensagemNaoAchada.textContent = "Categoria não Encontrada";
                 }
             }
     
@@ -88,12 +95,13 @@ function deletarCategoria() {
             
             idCategoria.value = ""; // Após Cadastrar os campus do input ficam vazios
             categoria.value = ""; // Após Cadastrar os campus do input ficam vazios
-    
+            
             mensagem.style.display = "none"; // Mensagem dos campos não preenchidos ficam como none
  
             montarTabela(); // Função para Montar a Tabela
         }
         else { // Se no Vetor não tiver nenhum item 
+            mensagem.style.display = "none"
             mensagemdeletar.style.display = "block";
             mensagemTextoDelete.textContent = "Nenhum Item para Deletar"
         }
