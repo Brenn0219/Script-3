@@ -26,13 +26,13 @@
 
         <form id="form-categoria">
             <div class="row form-item">
-                <div class="col-4">
+                <div class="offset-3 col-3">
                     <div>
                         <label for="idCategoria">ID</label>
                     </div>
                     <input type="text" name="idCategoria" id="idCategoria" class="form-input">
                 </div>
-                <div class="col-8">
+                <div class="col-3">
                     <div>
                         <label for="categoria">Categoria</label>
                     </div>
@@ -41,10 +41,14 @@
             </div>
         </form>
 
-       <div class="d-flex justify-content-between align-items-center">
-            <button type="button" id="inserir" class="btn btn-success">Inserir</button>
-            <button type="button" id="deletar" class="btn btn-danger">Deletar</button>
+       <div class="offset-5 col-2 mt-4 mb-4">
+           <div class="d-flex justify-content-between align-items-center">
+                <button type="button" id="inserir" class="btn btn-success">Inserir</button>
+                <button type="button" id="deletar" class="btn btn-danger">Deletar</button>
+           </div>
        </div>
+
+       <div id="mensagemDeletar" class="mensagemDeletar"><span id="mensagemTextoDelete" class="mensagemTextoDelete"></span></div>
 
        <table class="table table-striped-columns">
             <thead>
@@ -54,19 +58,11 @@
                     <th>Categoria</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr id = "tabelaTr">
-                    <td id="tableNum"></td>
-                    <td id="tableID"></td>
-                    <td id="tableCategoria"></td>
-                </tr>
+            <tbody  id = "tabelaTr">
+                
             </tbody>
-       </table>
-
-       
-
+       </table> 
     </main>
-
 
 
     <!-- LINK BOOSTRAP JS -->

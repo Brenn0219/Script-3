@@ -7,56 +7,98 @@ const inserir = document.getElementById("inserir");
 const deletar = document.getElementById("deletar");
 
 // IDS Tabela
-const tableNum = document.getElementById("tableNum");
-const tableID = document.getElementById("tableID");
-const tableCategoria = document.getElementById("tableCategoria");
 const tabelaTr = document.getElementById("tabelaTr");
 
-let db_cadastro = { // ojdados
-    data: [ //usuarios 
-        {
-            numero: "",
-            id: "",
-            categoria: ""
-        }
-    ]
+// IDS Mensagem 
+const mensagem = document.getElementById("mensagem");
+const mensagemTexto = document.getElementById("mensagemTexto");
+const mensagemdeletar = document.getElementById("mensagemDeletar");
+const mensagemTextoDelete = document.getElementById("mensagemTextoDelete");
+
+// Objeto com Vetor
+let db_cadastro = {
+    data: []
 }
-// db_castro.data.push()
 
-
-
+// BOTAÕ INSERIR
 inserir.addEventListener("click", () => {
     cadastrarCategoria();
 })
 
 function cadastrarCategoria() {
-    if(idCategoria.value != "" && categoria.value !== "") {
-        let num = 1;
-        let textoID = idCategoria.value;
-        let textoCategoria = categoria.value;
-
-        let novaCategoria =  {
-            numero: num,
-            id: textoID,
-            categoria: textoCategoria
+    if(idCategoria.value != "" && categoria.value !== "") { // Verifica se os Inputs não estão Vazios
+        let novaCategoria =  { // Cadastra a Categoria
+            id: idCategoria.value,
+            categoria: categoria.value
         };
 
-        db_cadastro.data.push(novaCategoria);
+        db_cadastro.data.push(novaCategoria); // Adiciona ela a última posição do Vetor do Objeto
 
-        localStorage.setItem("db_Categorias", JSON.stringify(db_cadastro));
+        localStorage.setItem('db_Categorias', JSON.stringify(db_cadastro)); // Manda para o localStorage
 
-        montarTabela();
+        idCategoria.value = ""; // Após Cadastrar os campus do input ficam vazios
+        categoria.value = ""; // Após Cadastrar os campus do input ficam vazios
+
+        mensagem.style.display = "none"; // Mensagem dos campos não preenchidos ficam como none
+        mensagemdeletar.style.display = "none"; // Mensagem caso não tenha nenhum item no vetor ficam como none
+
+        montarTabela(); // Função para Montar a Tabela
     }
     else {
-        const mensagem = document.getElementById("mensagem");
-        const mensagemTexto = document.getElementById("mensagemTexto");
-
-        mensagem.style.display = "block";
-        mensagemTexto.textContent = "Preencha Todos os Campos"
+        displayMensagem(); // Função para mostrar a Mensagem caso os campus dos inputs estejam vazios
     }
 }
 
-function montarTabela() {
-    let cadastroObjetos = localStorage.getItem("db_Categorias", JSON.parse(db_cadastro))
+// Função caso os Inputs estjeam vazios 
+function displayMensagem() {
+    mensagem.style.display = "block";
+    mensagemTexto.textContent = "Preencha Todos os Campos"
+}
 
+// Função para Montar a tabela
+function montarTabela() {
+    let testeTabela = "";
+
+    for(let j=0; j<db_cadastro.data.length; j++) { // Pecorre todo o Vetor do Objeto Preenchendo
+        testeTabela += `<tr>
+        <td>${j+1}</td>
+        <td>${db_cadastro.data[j].id}</td>
+        <td>${db_cadastro.data[j].categoria}</td>
+        </tr>`
+    }
+
+    tabelaTr.innerHTML = testeTabela;
+}
+
+// BOTÃO DELETAR
+deletar.addEventListener("click", () => {
+    deletarCategoria();
+})
+
+function deletarCategoria() {
+    if(idCategoria.value != "" && categoria.value !== "") { // Verifica se os Inputs não estão Vazios
+        if(db_cadastro.data.length > 0) { // Se no vetor tiver pelo menos um Item
+            for(let i=0; i<db_cadastro.data.length; i++) {
+                if(idCategoria.value == db_cadastro.data[i].id && categoria.value == db_cadastro.data[i].categoria) { // Se o que for digitado nos inputs tem no vetor
+                    db_cadastro.data.splice(i, 1); // Excluí o índice específico do vetor 
+                }
+            }
+    
+            localStorage.setItem('db_Categorias', JSON.stringify(db_cadastro));  // Manda para o localStorage
+            
+            idCategoria.value = ""; // Após Cadastrar os campus do input ficam vazios
+            categoria.value = ""; // Após Cadastrar os campus do input ficam vazios
+    
+            mensagem.style.display = "none"; // Mensagem dos campos não preenchidos ficam como none
+ 
+            montarTabela(); // Função para Montar a Tabela
+        }
+        else { // Se no Vetor não tiver nenhum item 
+            mensagemdeletar.style.display = "block";
+            mensagemTextoDelete.textContent = "Nenhum Item para Deletar"
+        }
+    }
+    else {
+        displayMensagem(); // Função para mostrar a Mensagem caso os campus dos inputs estejam vazios
+    }  
 }

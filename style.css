@@ -15,6 +15,18 @@
     display: none;
 }
 
+.mensagemDeletar {
+    background-color: rgba(165, 42, 42, 0.582);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    display: none;
+}
+
 .form-categoria {
     margin-top: 2rem;
+}
+
+.red {
+    border: solid 1px red;
 }
